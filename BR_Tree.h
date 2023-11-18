@@ -1,8 +1,8 @@
 /*
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2023-11-18 00:51:35
- * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
- * @LastEditTime: 2023-11-18 16:17:27
+ * @LastEditors: Ziguan Jin 18917950960@163.com
+ * @LastEditTime: 2023-11-18 19:54:03
  * @FilePath: /black-red-tree/BR_Tree.h
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,7 +10,8 @@
 #define BR_TREE_H
 #include"BR_Tree_Node.h"
 #include <__config>
-#include <utility>
+#include <cstddef>
+// #include <utility>
 
 template <typename K, typename V>
 class BR_Tree{
@@ -18,8 +19,11 @@ private:
     BR_Tree_Node<K, V> *root_;
 
 public:
-    BR_Tree<K, V>(std::pair<K, V> data);
-    ~BR_Tree<K, V>();
+    BR_Tree<K, V>() {
+        this->root_ = nullptr;
+    }
+
+    ~BR_Tree<K, V>(){}
 
     //functional functions
     void LeftRotate(BR_Tree_Node<K, V> *cur);
@@ -32,6 +36,7 @@ public:
     bool IsBRTree();
     
 };
+
 
 template<typename K, typename V>
 void BR_Tree<K, V>::LeftRotate(BR_Tree_Node<K, V> *cur) {
@@ -422,7 +427,7 @@ bool BR_Tree<K, V>::Remove(const K &key){
             //如果为左结点
             delete_pre->left_child_ = delete_node->left_child_;
             if(delete_node->left_child_){
-                delete_node->left_child_.parent_ = delete_pre;
+                delete_node->left_child_->parent_ = delete_pre;
             }
         }else {
             //为右结点
